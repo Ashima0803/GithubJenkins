@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Dependency installation...'
                 echo 'Building application...'
-                git branch: 'main', url: 'https://github.com/Ashima0803/GithubJenkins'
+                git branch: 'main', url: 'https://github.com/Ashima0803/GithubJenkins.git'
             }
         }
         
