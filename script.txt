@@ -1,111 +1,62 @@
 pipeline {
-    agent any
+    agent any 
     
     stages {
         stage('Build') {
             steps {
-                echo 'Dependency installation...'
-                echo 'Building application...'
-                git branch: 'main', url: 'https://github.com/Ashima0803/GithubJenkins.git'
+                echo 'Building the code using a build automation tool (e.g., Maven)...'
+                echo 'Recommended tool: Maven'
             }
         }
         
-        stage('Test') {
+        stage('Unit and Integration Tests') {
             steps {
-                echo 'Testing...'
-                script {
-                    def powershellCommand = """
-                        \$SMTPServer = "smtp.gmail.com"
-                        \$SMTPFrom = "ashima4769.be22@chitkara.edu.in"
-                        \$SMTPTo = "ashima4769.be22@chitkara.edu.in"
-                        \$SMTPSubject = "Test success."
-                        \$SMTPBody = "Test successful."
-                        \$SMTPUsername = "ashima4769.be22@chitkara.edu.in"
-                        \$SMTPPassword = "zsxz yxsp ipyv ngus"
-                        Send-MailMessage -From \$SMTPFrom -to \$SMTPTo -Subject \$SMTPSubject -Body \$SMTPBody -SmtpServer \$SMTPServer -UseSsl -Port 587 -Credential (New-Object System.Management.Automation.PSCredential \$SMTPUsername, (ConvertTo-SecureString -AsPlainText \$SMTPPassword -Force))
-                    """
-                    powershell(powershellCommand)
-                }
+                echo 'Running unit tests and integration tests...'
+                echo 'Recommended test automation tool: JUnit (for unit tests), Selenium (for integration tests)'
             }
         }
         
         stage('Code Analysis') {
             steps {
-                echo 'Code analysis...'
+                echo 'Integrating a code analysis tool (e.g., SonarQube) to analyze the code...'
+                echo 'Recommended tool: SonarQube'
             }
         }
         
-        stage('Security') {
+        stage('Security Scan') {
             steps {
-                echo 'Security scans...'
-                script {
-                    def powershellCommand = """
-                        \$SMTPServer = "smtp.gmail.com"
-                        \$SMTPFrom = "ashima4769.be22@chitkara.edu.in"
-                        \$SMTPTo = "ashima4769.be22@chitkara.edu.in"
-                        \$SMTPSubject = "Security checks passed."
-                        \$SMTPBody = "Pipeline cleared security checks."
-                        \$SMTPUsername = "ashima4769.be22@chitkara.edu.in"
-                        \$SMTPPassword = ""
-                        Send-MailMessage -From \$SMTPFrom -to \$SMTPTo -Subject \$SMTPSubject -Body \$SMTPBody -SmtpServer \$SMTPServer -UseSsl -Port 587 -Credential (New-Object System.Management.Automation.PSCredential \$SMTPUsername, (ConvertTo-SecureString -AsPlainText \$SMTPPassword -Force))
-                    """
-                    powershell(powershellCommand)
-                }
+                echo 'Performing a security scan on the code...'
+                echo 'Recommended tool: OWASP ZAP (Zed Attack Proxy)'
             }
         }
         
-        stage('Deploy Staging') {
+        stage('Deploy to Staging') {
             steps {
-                echo 'Staging deployment...'
+                echo 'Deploying the application to a staging server (e.g., AWS EC2 instance)...'
+                echo 'Recommended deployment tool: Jenkins Pipeline (with AWS CodeDeploy plugin)'
             }
         }
         
-        stage('Integration Test') {
+        stage('Integration Tests on Staging') {
             steps {
-                echo 'Integration testing...'
+                echo 'Running integration tests on the staging environment...'
+                echo 'Recommended tool: Apache JMeter'
             }
         }
         
-        stage('Deploy Production') {
+        stage('Deploy to Production') {
             steps {
-                echo 'Production deployment...'
+                echo 'Deploying the application to a production server (e.g., AWS EC2 instance)...'
+                echo 'Recommended deployment tool: Jenkins Pipeline (with AWS CodeDeploy plugin)'
             }
         }
     }
     
     post {
         success {
-            script {
-                def powershellCommand = """
-                    \$SMTPServer = "smtp.gmail.com"
-                    \$SMTPFrom = "ashima4769.be22@chitkara.edu.in"
-                    \$SMTPTo = "ashima4769.be22@chitkara.edu.in"
-                    \$SMTPSubject = "Success."
-                    \$SMTPBody = "Pipeline executed successfully."
-                    \$SMTPUsername = "ashima4769.be22@chitkara.edu.in"
-                    \$SMTPPassword = ""
-                    Send-MailMessage -From \$SMTPFrom -to \$SMTPTo -Subject \$SMTPSubject -Body \$SMTPBody -SmtpServer \$SMTPServer -UseSsl -Port 587 -Credential (New-Object System.Management.Automation.PSCredential \$SMTPUsername, (ConvertTo-SecureString -AsPlainText \$SMTPPassword -Force))
-                """
-                powershell(powershellCommand)
-            }
-            echo 'Success!'
-        }
-        
-        failure {
-            script {
-                def powershellCommand = """
-                    \$SMTPServer = "smtp.gmail.com"
-                    \$SMTPFrom = "ashima4769.be22@chitkara.edu.in"
-                    \$SMTPTo = "ashima4769.be22@chitkara.edu.in"
-                    \$SMTPSubject = "Failure"
-                    \$SMTPBody = "Pipeline failed to execute."
-                    \$SMTPUsername = "ashima4769.be22@chitkara.edu.in"
-                    \$SMTPPassword = ""
-                    Send-MailMessage -From \$SMTPFrom -to \$SMTPTo -Subject \$SMTPSubject -Body \$SMTPBody -SmtpServer \$SMTPServer -UseSsl -Port 587 -Credential (New-Object System.Management.Automation.PSCredential \$SMTPUsername, (ConvertTo-SecureString -AsPlainText \$SMTPPassword -Force))
-                """
-                powershell(powershellCommand)
-            }
-            echo 'Failure! Check for errors.'
+            emailext body: 'Verifying message', 
+                     subject: 'Transmission message', 
+                     to: 'ashimakakkar2k4@gmail.com'
         }
     }
 }
